@@ -1,0 +1,53 @@
+server.port: 8084
+
+jwt:
+  secret:
+    key: 9AA2963E5275F14DFF4ACD2C1288A86F71906E29318119F038A99EBFB1D9100F
+
+token:
+  validity: 86400000
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  flyway:
+    baselineOnMigrate: true
+    check-location: true
+    locations: db.migration
+    schemas: public
+    enabled: true
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    health:
+      show-details: always
+
+swagger-properties:
+  title: SwaggerTest
+  description: Custom description
+  version: 1.0
+  license-name: Vlad 2023
+  contact-name: Vlad
+
+springdoc:
+  swagger-ui:
+    path: /sw
+  api-docs:
+    path: /sc
+  packages-to-scan: com.project.library.controllers
+
+
+
+
+
+
