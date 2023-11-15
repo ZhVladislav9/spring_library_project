@@ -14,10 +14,10 @@ import java.util.List;
 @Service
 public interface BookService {
     public List<BookDTO> getBooks();
-    public BookDTO bookFindById(@PathVariable(value = "id") int id);
-    public Book addBook(@RequestBody BookDTO bookDTO);
-    public BookDTO bookUpdate(@PathVariable int id, @RequestBody BookDTO bookDTO);
-    public ResponseEntity<HttpStatus> bookDelete(@PathVariable(value = "id") int id);
-    public BookDTO getBookByIsbn(@RequestParam(value = "isbn") String isbn);
+    public BookDTO bookFindById(int id);
+    public Book addBook(BookDTO bookDTO);
+    public BookDTO bookUpdate(int id, BookDTO bookDTO);
+    public ResponseEntity<HttpStatus> bookDelete(int id);
+    public BookDTO getBookByIsbn(String isbn);
 
 }

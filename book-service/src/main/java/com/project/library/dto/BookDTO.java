@@ -1,6 +1,7 @@
 package com.project.library.dto;
 
 import lombok.Data;
+import java.util.List;
 
 @Data
 public class BookDTO {
@@ -10,4 +11,6 @@ public class BookDTO {
     private String genre;
     private String description;
     private String author;
+
+    private List<BookDTO> books;
 }

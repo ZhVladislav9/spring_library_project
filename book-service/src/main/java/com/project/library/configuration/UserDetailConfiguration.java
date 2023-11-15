@@ -1,6 +1,5 @@
 package com.project.library.configuration;
 
-//import com.project.bookservice.repository.WebuserRepository;
 import com.project.library.repository.WebuserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class UserDetailConfiguration {
     @Autowired
-    WebuserRepository webuserRepository;
+    private WebuserRepository webuserRepository;
 
     @Bean
     public UserDetailsService userDetailsService() {

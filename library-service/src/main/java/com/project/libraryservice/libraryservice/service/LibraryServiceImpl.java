@@ -4,7 +4,6 @@ import com.project.libraryservice.libraryservice.convert.AvailableBookDTOConvert
 import com.project.libraryservice.libraryservice.convert.BorrowedBookDTOConverter;
 import com.project.libraryservice.libraryservice.dto.AvailableBookDTO;
 import com.project.libraryservice.libraryservice.dto.BookDTO;
-import com.project.libraryservice.libraryservice.dto.BorrowedBookDTO;
 import com.project.libraryservice.libraryservice.models.AvailableBook;
 import com.project.libraryservice.libraryservice.models.BorrowedBook;
 import com.project.libraryservice.libraryservice.repository.AvailableBookRepository;
@@ -27,11 +26,11 @@ public class LibraryServiceImpl implements LibraryService {
     @Autowired
     private BorrowedBookRepository borrowedBookRepository;
     @Autowired
-    AvailableBookDTOConverter availableBookDTOConverter;
+    private AvailableBookDTOConverter availableBookDTOConverter;
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
     @Autowired
-    BorrowedBookDTOConverter borrowedBookDTOConverter;
+    private BorrowedBookDTOConverter borrowedBookDTOConverter;
 
     public AvailableBookDTO newAvailableBook(int bookId) {
         AvailableBook availableBook = AvailableBook.builder()

@@ -14,7 +14,7 @@ import java.security.NoSuchAlgorithmException;
 @Log4j2
 public class WebuserRestController {
     @Autowired
-    WebuserServiceImpl webuserServiceImpl;
+    private WebuserServiceImpl webuserServiceImpl;
     @PostMapping("/register/user")
     @Operation(summary = "Зарегистрировать нового пользователя", description = "Зарегистрировать нового пользователя")
     public ResponseEntity<AuthenticationResponse> addUser(@RequestBody RegisterRequest request) throws NoSuchAlgorithmException {

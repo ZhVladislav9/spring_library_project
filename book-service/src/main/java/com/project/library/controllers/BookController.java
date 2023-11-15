@@ -17,7 +17,7 @@ import java.util.List;
 @Tag(name = "Book")
 public class BookController {
     @Autowired
-    BookServiceImpl bookServiceImpl;
+    private BookServiceImpl bookServiceImpl;
     @GetMapping("/all-books")
     @Operation(summary = "Вывести книги", description = "Вывести все книги")
     public List<BookDTO> getBooks(){

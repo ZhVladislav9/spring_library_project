@@ -17,40 +17,40 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class BookServiceImpl implements BookService {
     @Autowired
-    BookRepository bookRepository;
+    private BookRepository bookRepository;
     @Autowired
     private BookDTOConverter bookDTOConverter;
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
+    public static final String LIBRARY_ENDPOINT = "http://localhost:8085/library?bookId=";
 
     public List<BookDTO> getBooks() {
         Iterable<Book> books = bookRepository.findAll();
-        List<BookDTO> bookDTOs = new ArrayList<>();
 
-        for (Book book : books) {
-            bookDTOs.add(bookDTOConverter.convertBookToBookDTO(book));
-        }
-
-        return bookDTOs;
+        return StreamSupport.stream(books.spliterator(), false)
+                .map(bookDTOConverter::convertBookToBookDTO)
+                .collect(Collectors.toList());
     }
 
-    public BookDTO bookFindById(@PathVariable(value = "id") int id){
+    public BookDTO bookFindById(int id){
         return bookDTOConverter.convertBookToBookDTO(bookRepository.findById(id).orElseThrow());
     }
 
-    public Book addBook(@RequestBody BookDTO bookDTO){
+    public Book addBook(BookDTO bookDTO){
         Book book = bookDTOConverter.convertBookDTOToBook(bookDTO);
         bookRepository.save(book);
-        String libraryServiceUrl = "http://localhost:8085/library?bookId=" + book.getId();
+        String libraryServiceUrl = LIBRARY_ENDPOINT + book.getId();
         HttpEntity<Integer> request = new HttpEntity<>(book.getId());
         ResponseEntity<String> response = restTemplate.postForEntity(libraryServiceUrl,request,String.class);
         return book;
     }
-    public BookDTO bookUpdate(@RequestParam int id, @RequestBody BookDTO bookDTO){
+    public BookDTO bookUpdate(int id, BookDTO bookDTO){
         Book editedBook = bookRepository.findById(id).orElseThrow();
         Book book = bookDTOConverter.convertBookDTOToBook(bookDTO);
 
@@ -67,12 +67,12 @@ public class BookServiceImpl implements BookService {
         bookRepository.save(editedBook);
         return bookDTOConverter.convertBookToBookDTO(editedBook);
     }
-    public ResponseEntity<HttpStatus> bookDelete(@PathVariable(value = "id") int id){
+    public ResponseEntity<HttpStatus> bookDelete(int id){
         Book book = bookRepository.findById(id).orElseThrow();
         bookRepository.delete(book);
         return ResponseEntity.noContent().build();
     }
-    public BookDTO getBookByIsbn(@RequestParam(value = "isbn") String isbn){
+    public BookDTO getBookByIsbn(String isbn){
         return bookDTOConverter.convertBookToBookDTO(bookRepository.findByIsbn(isbn).orElseThrow());
     }
 }

@@ -27,16 +27,16 @@ import java.util.UUID;
 public class WebuserServiceImpl implements WebuserService {
 
     @Autowired
-    WebuserRepository webuserRepository;
+    private WebuserRepository webuserRepository;
 
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    JwtService jwtService;
+    private JwtService jwtService;
 
     @Autowired
-    AuthenticationManager authenticationManager;
+    private AuthenticationManager authenticationManager;
 
     public AuthenticationResponse addUser(RegisterRequest request) throws NoSuchAlgorithmException {
         Webuser webuserToAdd = Webuser.builder()
